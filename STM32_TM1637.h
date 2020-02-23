@@ -1,4 +1,4 @@
-//  STM32_TM1637 v1.1
+//  STM32_TM1637 v2.0
 //  Alexander Liman
 //  liman324@yandex.ru
 //  rcl-radio.ru
@@ -8,25 +8,26 @@
 
 #include <Arduino.h>
 
-#define CLK      PB0
-#define DIO      PB1
 #define CODE0    0b10001000
 #define CODE1    0x40
 #define ADDR0    0xC0
 
 class  STM32_TM1637
-{
-  public:
-     STM32_TM1637();
-     
-void print_dec(int decimal, int pd, int h0, int h1, int h2, int h3);
-void brig(byte br);
+  {
+    public:
+
+  STM32_TM1637(uint8_t, uint8_t);
+  void print_float(float decimal, byte pd,      byte h0, byte h1, byte h2, byte h3);
+  void brig(byte br);
   
-  private:
+    private:
   
-void dec(byte dig);
-void stop();
-void start();
-byte qwer;
-};
+  void dec(byte dig);
+  void stop();
+  void start();
+  void del();
+  byte qwer;
+  uint8_t DIO;
+  uint8_t CLK;
+  };
 #endif
