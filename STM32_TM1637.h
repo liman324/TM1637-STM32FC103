@@ -18,6 +18,7 @@ class  STM32_TM1637
 
   STM32_TM1637(uint8_t, uint8_t);
   void print_float(float decimal, byte pd,      byte h0, byte h1, byte h2, byte h3);
+  void print_time(int t, byte pd_t); 
   void brig(byte br);
   
     private:
