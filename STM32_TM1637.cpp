@@ -128,3 +128,41 @@ void STM32_TM1637::print_float(float decimal, byte pd,    byte h0, byte h1, byte
         
         dec(ADDR0);dec(data0);dec(data1);dec(data2);dec(data3);stop();
     }
+
+void STM32_TM1637::print_time(int t, byte pd_t){
+        start();dec(qwer);stop();start();dec(CODE1);stop();start();
+        
+        int data0 = t/1000;
+        int data1 = t/100%10;
+        int data2 = t/10%10;
+        int data3 = t%10;
+        
+        for(int n=0;n<4;n++){
+        int data;
+        if(n==0){data=data0;}
+        if(n==1){data=data1;}
+        if(n==2){data=data2;}
+        if(n==3){data=data3;}
+              
+        switch(data){  // XGFEDCBA
+        case 0:  data = 0b00111111;break;     // 0
+        case 1:  data = 0b00000110;break;     // 1
+        case 2:  data = 0b01011011;break;     // 2
+        case 3:  data = 0b01001111;break;     // 3
+        case 4:  data = 0b01100110;break;     // 4
+        case 5:  data = 0b01101101;break;     // 5
+        case 6:  data = 0b01111101;break;     // 6
+        case 7:  data = 0b00000111;break;     // 7
+        case 8:  data = 0b01111111;break;     // 8
+        case 9:  data = 0b01101111;break;     // 9
+        }
+              
+        if(n==0){data0=data;}
+        if(n==1){data1=data;}
+        if(n==2){data2=data;}
+        if(n==3){data3=data;}
+        }
+        if(pd_t==1){data1=data1+0b10000000;}
+        
+        dec(ADDR0);dec(data0);dec(data1);dec(data2);dec(data3);stop();
+}
